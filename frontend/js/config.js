@@ -8,4 +8,4 @@
 //   const API_BASE = "https://your-backend-name.onrender.com/api";
 // ============================================================================
 
-const API_BASE = "http://127.0.0.1:5000/api";
+const API_BASE = "https://meatshop-sme.onrender.com/api";
