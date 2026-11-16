@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Cuts & Co.</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand">Cuts&nbsp;&amp;&nbsp;Co. <span>MEAT SHOP</span></div>
+    <nav class="nav-group">
+      <a class="nav-link" href="index.html">🏠 Dashboard</a>
+      <a class="nav-link" href="products.html">🥩 Products</a>
+      <a class="nav-link" href="inventory.html">📦 Inventory</a>
+      <a class="nav-link" href="orders.html">🧾 Orders</a>
+      <a class="nav-link" href="customers.html">👤 Customers</a>
+      <a class="nav-link" href="settings.html">⚙️ Categories / Suppliers / Staff</a>
+    </nav>
+    <div class="sidebar-foot">Connected to Supabase.<br>Backend: Flask REST API.</div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>Good day, Boss.</h1>
+        <p>Here's how the shop is doing today.</p>
+      </div>
+    </div>
+
+    <div class="grid-stats" id="stat-cards">
+      <div class="stat-card accent">
+        <div class="label">Today's sales</div>
+        <div class="hero-number" id="stat-today-sales">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Orders today</div>
+        <div class="hero-number" id="stat-today-orders">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Products on record</div>
+        <div class="hero-number" id="stat-products">—</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="label">Low stock alerts</div>
+        <div class="hero-number" id="stat-low-stock">—</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Low stock items</h3>
+        <a href="inventory.html" class="btn btn-ghost btn-sm">Manage stock</a>
+      </div>
+      <div class="panel-body">
+        <table>
+          <thead><tr><th>Product</th><th>Current stock</th><th>Reorder level</th><th></th></tr></thead>
+          <tbody id="low-stock-rows"><tr><td colspan="4" class="cell-muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Recent orders</h3>
+        <a href="orders.html" class="btn btn-ghost btn-sm">View all</a>
+      </div>
+      <div class="panel-body">
+        <table>
+          <thead><tr><th>Order #</th><th>Customer</th><th>Status</th><th>Date</th><th>Total</th></tr></thead>
+          <tbody id="recent-orders-rows"><tr><td colspan="5" class="cell-muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories / Suppliers / Staff · Cuts & Co.</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand">Cuts&nbsp;&amp;&nbsp;Co. <span>MEAT SHOP</span></div>
+    <nav class="nav-group">
+      <a class="nav-link" href="index.html">🏠 Dashboard</a>
+      <a class="nav-link" href="products.html">🥩 Products</a>
+      <a class="nav-link" href="inventory.html">📦 Inventory</a>
+      <a class="nav-link" href="orders.html">🧾 Orders</a>
+      <a class="nav-link" href="customers.html">👤 Customers</a>
+      <a class="nav-link" href="settings.html">⚙️ Categories / Suppliers / Staff</a>
+    </nav>
+    <div class="sidebar-foot">Connected to Supabase.<br>Backend: Flask REST API.</div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>Shop setup</h1>
+        <p>Manage categories, suppliers, and staff accounts.</p>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="categories" onclick="switchTab('categories')">Categories</button>
+      <button class="tab-btn" data-tab="suppliers" onclick="switchTab('suppliers')">Suppliers</button>
+      <button class="tab-btn" data-tab="employees" onclick="switchTab('employees')">Staff</button>
+    </div>
+
+    <!-- Categories tab -->
+    <div class="tab-panel" id="tab-categories">
+      <div class="page-head" style="margin-bottom:14px">
+        <div></div>
+        <button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ Add category</button>
+      </div>
+      <div class="panel"><div class="panel-body">
+        <table>
+          <thead><tr><th>Name</th><th>Description</th><th></th></tr></thead>
+          <tbody id="category-rows"><tr><td colspan="3" class="cell-muted">Loading…</td></tr></tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <!-- Suppliers tab -->
+    <div class="tab-panel" id="tab-suppliers" style="display:none">
+      <div class="page-head" style="margin-bottom:14px">
+        <div></div>
+        <button class="btn btn-primary btn-sm" onclick="openSupplierModal()">+ Add supplier</button>
+      </div>
+      <div class="panel"><div class="panel-body">
+        <table>
+          <thead><tr><th>Name</th><th>Contact person</th><th>Phone</th><th>Email</th><th></th></tr></thead>
+          <tbody id="supplier-rows"><tr><td colspan="5" class="cell-muted">Loading…</td></tr></tbody>
+        </table>
+      </div></div>
+    </div>
+
+    <!-- Employees tab -->
+    <div class="tab-panel" id="tab-employees" style="display:none">
+      <div class="page-head" style="margin-bottom:14px">
+        <div></div>
+        <button class="btn btn-primary btn-sm" onclick="openEmployeeModal()">+ Add staff</button>
+      </div>
+      <div class="panel"><div class="panel-body">
+        <table>
+          <thead><tr><th>Name</th><th>Role</th><th>Phone</th><th>Status</th><th></th></tr></thead>
+          <tbody id="employee-rows"><tr><td colspan="5" class="cell-muted">Loading…</td></tr></tbody>
+        </table>
+      </div></div>
+    </div>
+  </main>
+</div>
+
+<!-- Category Modal -->
+<div class="modal-overlay" id="category-modal">
+  <div class="modal">
+    <h2 id="category-modal-title">Add category</h2>
+    <form id="category-form">
+      <input type="hidden" id="category-id">
+      <div class="field full"><label>Name</label><input class="input" id="cat-name" required></div>
+      <div class="field full" style="margin-top:12px"><label>Description</label><textarea class="input" id="cat-desc" rows="2"></textarea></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('category-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Supplier Modal -->
+<div class="modal-overlay" id="supplier-modal">
+  <div class="modal">
+    <h2 id="supplier-modal-title">Add supplier</h2>
+    <form id="supplier-form">
+      <input type="hidden" id="supplier-id">
+      <div class="form-grid">
+        <div class="field full"><label>Supplier name</label><input class="input" id="sup-name" required></div>
+        <div class="field"><label>Contact person</label><input class="input" id="sup-contact"></div>
+        <div class="field"><label>Phone</label><input class="input" id="sup-phone"></div>
+        <div class="field"><label>Email</label><input class="input" type="email" id="sup-email"></div>
+        <div class="field full"><label>Address</label><input class="input" id="sup-address"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('supplier-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Employee Modal -->
+<div class="modal-overlay" id="employee-modal">
+  <div class="modal">
+    <h2 id="employee-modal-title">Add staff</h2>
+    <form id="employee-form">
+      <input type="hidden" id="emp-id">
+      <div class="form-grid">
+        <div class="field full"><label>Full name</label><input class="input" id="emp-name" required></div>
+        <div class="field">
+          <label>Role</label>
+          <select class="input" id="emp-role">
+            <option>Owner</option><option>Manager</option><option>Butcher</option><option>Cashier</option><option selected>Staff</option>
+          </select>
+        </div>
+        <div class="field"><label>Phone</label><input class="input" id="emp-phone"></div>
+        <div class="field full"><label>Email</label><input class="input" type="email" id="emp-email"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('employee-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>
